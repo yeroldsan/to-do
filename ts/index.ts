@@ -33,7 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault();
       const description = input.value.trim();
       if (description !== "") {
-        todos.addTask(description).then((task) => {
+        todos.addTask(description)
+        .then((task) => {
           input.value = "";
           input.focus();
           renderTask(<Task>task);
@@ -75,9 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
       todos
         .removeTask(id)
         .then((id) => {
-          let elementToRemove: HTMLLIElement = document.querySelector(
-            `[data-key='${id}']`
-          );
+          let elementToRemove: HTMLLIElement = document.querySelector(`[data-key='${id}']`);
           if (elementToRemove) {
             list.removeChild(elementToRemove);
           }
@@ -102,8 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
         oldDescription
       );
       if (new_description !== "") {
-        todos
-          .updateTask(id, new_description)
+        todos.updateTask(id, new_description)
           .then(() => {
             list_item.querySelector("span").innerHTML = new_description;
           })
@@ -126,8 +124,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let span = list_item.querySelector("span");
     checkbox.addEventListener("change", (event: Event) => {
       if (checkbox.checked) {
-        todos.markTaskAsDone(id, true);
-        span.style.textDecorationLine = "line-through"
+        todos.markTaskAsDone(id, true)
+        .then(() => {
+          span.style.textDecorationLine = "line-through"
+        })
+        .catch((error) => {
+          alert(error)
+        })
       } else {
         todos.markTaskAsDone(id, false);
         span.style.textDecorationLine = "none"

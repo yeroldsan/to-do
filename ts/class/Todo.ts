@@ -39,7 +39,7 @@ class Todos {
   #markTaskAsDone(id:number, completed: boolean) {
     let task = this.tasks.find((task) => task.id === id)
     if (task) {
-      task.completed = completed
+      task.completed = true
     }
     return task
   }

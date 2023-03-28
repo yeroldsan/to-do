@@ -144,7 +144,7 @@ _Todos_backend_url = new WeakMap(), _Todos_instances = new WeakSet(), _Todos_rea
 }, _Todos_markTaskAsDone = function _Todos_markTaskAsDone(id, completed) {
     let task = this.tasks.find((task) => task.id === id);
     if (task) {
-        task.completed = completed;
+        task.completed = true;
     }
     return task;
 };
