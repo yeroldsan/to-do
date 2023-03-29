@@ -26,8 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
             event.preventDefault();
             const description = input.value.trim();
             if (description !== "") {
-                todos.addTask(description)
-                    .then((task) => {
+                todos.addTask(description).then((task) => {
                     input.value = "";
                     input.focus();
                     renderTask(task);
@@ -83,7 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
             let oldDescription = list_item.querySelector("span").innerText;
             let new_description = prompt("Enter new task description:", oldDescription);
             if (new_description !== "") {
-                todos.updateTask(id, new_description)
+                todos
+                    .updateTask(id, new_description)
                     .then(() => {
                     list_item.querySelector("span").innerHTML = new_description;
                 })
@@ -105,7 +105,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let span = list_item.querySelector("span");
         checkbox.addEventListener("change", (event) => {
             if (checkbox.checked) {
-                todos.markTaskAsDone(id, true)
+                todos
+                    .markTaskAsDone(id, true)
                     .then(() => {
                     span.style.textDecorationLine = "line-through";
                 })
@@ -119,4 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     };
+    // const renderCheckbox = (list_item: HTMLLIElement, completed: boolean) => {
+    //   let checkbox =
+    // }
 });
