@@ -1,6 +1,6 @@
 # Todo Web App
 
-This is a simple Todo web app built using Node.js, Express, PostgreSQL and TypeScript for both frontend and backend. You can perform CRUD operations on tasks.
+This is a simple Todo web app developed as a task for a project at the university. The app allows users to perform CRUD operations on tasks, and is built using Node.js, Express, PostgreSQL, and TypeScript for both frontend and backend. The backend and database are deployed on Render.
 
 ## Getting Started
 
