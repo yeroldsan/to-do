@@ -137,4 +137,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     })
   }
+
+  // const renderCheckbox = (list_item: HTMLLIElement, completed: boolean) => {
+  //   let checkbox = 
+  // }
+  
 })
