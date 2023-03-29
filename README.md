@@ -1,7 +1,7 @@
 # Todo Web App
 
 The todo app allows users to perform CRUD operations on tasks, and is built using Node.js, Express, PostgreSQL, and TypeScript for both frontend and backend. The backend and database are deployed on Render.
-Note: Marking a task as done is not fully supported yet.
+Note: Marking a task as done is not fully supported yet. Aditionally, please be aware that both the API endpoints (server) and the database are hosted on Render, which may cause some delay in the app's performance.
 
 ## Getting Started
 
