@@ -1,6 +1,6 @@
 import { Todos } from "./class/Todo.js";
 // Backend route
-const BACKEND_ROOT_URL = "http://localhost:3001";
+const BACKEND_ROOT_URL = "https://todo-backend-ujqs.onrender.com";
 // Charge all the DOM content before JavaScript
 document.addEventListener("DOMContentLoaded", () => {
     // Create object  of Todos class

@@ -2,7 +2,7 @@ import { Task } from "./class/Task.js";
 import { Todos } from "./class/Todo.js";
 
 // Backend route
-const BACKEND_ROOT_URL = "http://localhost:3001";
+const BACKEND_ROOT_URL = "https://todo-backend-ujqs.onrender.com";
 
 // Charge all the DOM content before JavaScript
 document.addEventListener("DOMContentLoaded", () => {
@@ -33,8 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault();
       const description = input.value.trim();
       if (description !== "") {
-        todos.addTask(description)
-        .then((task) => {
+        todos.addTask(description).then((task) => {
           input.value = "";
           input.focus();
           renderTask(<Task>task);
@@ -76,7 +75,9 @@ document.addEventListener("DOMContentLoaded", () => {
       todos
         .removeTask(id)
         .then((id) => {
-          let elementToRemove: HTMLLIElement = document.querySelector(`[data-key='${id}']`);
+          let elementToRemove: HTMLLIElement = document.querySelector(
+            `[data-key='${id}']`
+          );
           if (elementToRemove) {
             list.removeChild(elementToRemove);
           }
@@ -101,7 +102,8 @@ document.addEventListener("DOMContentLoaded", () => {
         oldDescription
       );
       if (new_description !== "") {
-        todos.updateTask(id, new_description)
+        todos
+          .updateTask(id, new_description)
           .then(() => {
             list_item.querySelector("span").innerHTML = new_description;
           })
@@ -115,31 +117,31 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const markTaskDone = (list_item: HTMLLIElement, id: number) => {
-    let checkbox = list_item.appendChild(document.createElement("input"))
-    checkbox.setAttribute("type", "checkbox")
-    checkbox.setAttribute("id", `checkbox-${id}`)
-    checkbox.setAttribute("class", "form-check-input mx-2")
-    checkbox.style.float = "left"
+    let checkbox = list_item.appendChild(document.createElement("input"));
+    checkbox.setAttribute("type", "checkbox");
+    checkbox.setAttribute("id", `checkbox-${id}`);
+    checkbox.setAttribute("class", "form-check-input mx-2");
+    checkbox.style.float = "left";
 
     let span = list_item.querySelector("span");
     checkbox.addEventListener("change", (event: Event) => {
       if (checkbox.checked) {
-        todos.markTaskAsDone(id, true)
-        .then(() => {
-          span.style.textDecorationLine = "line-through"
-        })
-        .catch((error) => {
-          alert(error)
-        })
+        todos
+          .markTaskAsDone(id, true)
+          .then(() => {
+            span.style.textDecorationLine = "line-through";
+          })
+          .catch((error) => {
+            alert(error);
+          });
       } else {
         todos.markTaskAsDone(id, false);
-        span.style.textDecorationLine = "none"
+        span.style.textDecorationLine = "none";
       }
-    })
-  }
+    });
+  };
 
   // const renderCheckbox = (list_item: HTMLLIElement, completed: boolean) => {
-  //   let checkbox = 
+  //   let checkbox =
   // }
-  
-})
+});
