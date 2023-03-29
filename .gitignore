@@ -1,5 +1,5 @@
-# server runs on render
-/server
+# server runs on render from a subdirectory of the repo
+# No need to be here
 
 # dependencies
 /node_modules
