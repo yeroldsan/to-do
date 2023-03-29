@@ -2,7 +2,7 @@
 # No need to be here
 
 # dependencies
-/node_modules
+/server/node_modules
 
 # misc
 .DS_Store
