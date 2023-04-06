@@ -27,5 +27,5 @@ _Note: Marking a task as done is not fully supported yet. Aditionally, please be
 6. Start the server
    ```sh
    cd project-folder/server/
-   npm run devStart
+   npm index.js
    ```
