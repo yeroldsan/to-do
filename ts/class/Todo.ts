@@ -2,7 +2,7 @@ import { Task } from "./Task.js";
 
 class Todos {
   tasks: Array<Task> = []
-  #backend_url
+  #backend_url = ""
 
   constructor(url) {
     this.#backend_url = url
