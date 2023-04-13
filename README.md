@@ -4,28 +4,39 @@ The todo app allows users to perform CRUD operations on tasks, and is built usin
 
 _Note: Marking a task as done is not fully supported yet. Aditionally, please be aware that both the API endpoints (server) and the database are hosted on Render, which may cause some delay in the app's performance._
 
-## Getting Started
+## Development Setup
 
 ### Prerequisites
 - Node.js
-- PostgreSQL
 
-### Local setup
-1. Clone the repository
-   ```sh
-   git clone https://github.com/doteins/todo.git
-   ```
-2. Install NPM packages
-   ```sh
-   cd project_folder/server
-   npm install
-   ```
-3. Copy SQL queries from server/db.sql to create the database
+### Local setup (Linux & Windows)
 
-4. Update the database connection details in the `Todo.ts` file to match the connection details for your PostgreSQL database. Update the backend url variable as well.
-
-6. Start the server
+1. First, clone the repo and cd into the project:
    ```sh
-   cd project-folder/server/
-   node index.js
+   git clone https://github.com/t2haev00/project-groupd.git
    ```
+   
+2. Move to the server directory:
+   ```sh
+   cd server/
+   ```
+   
+3. Install node dependencies:
+   ```sh
+   npm i
+   ```
+   
+4. In the server directory, open **sample.env** and copy its content into a new file named **.env**, then replace variable placeholders with the correct values for your database.
+
+### Compile TypeScript code:
+Run the following comand in the server directory:
+   ```sh
+   npx tcs
+   ```
+  
+### Run the server locally
+In the server directory, start the development server by running:
+   ```sh
+   npm run devStart
+   ```
+Backend will be running on **http://localhost:3001**.
