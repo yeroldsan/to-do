@@ -1,13 +1,14 @@
 # Todo Web App
 
-The todo app allows users to perform CRUD operations on tasks, and is built using Node.js, Express, PostgreSQL, and TypeScript for both frontend and backend. The backend and database are deployed on Render.
+This To-Do app allows users to perform CRUD (Create, Read, Update, Delte) operations on tasks. The server was built using the Express framework and NodeJS as the runtime, and for the database PostgreSQL was the choice. Both, back-end and front-end are written in TypeScript.
 
-_Note: Marking a task as done is not fully supported yet. Aditionally, please be aware that both the API endpoints (server) and the database are hosted on Render, which may cause some delay in the app's performance._
+_Note: Please be aware that the server and database are hosted on Render, which may cause some delay in the app's performance._
 
 ## Development Setup
 
 ### Prerequisites
 - Node.js
+- PostgreSQL ^15 (if any other relational database is used, change the db.sql file accordingly)
 
 ### Local setup (Linux & Windows)
 
@@ -28,8 +29,8 @@ _Note: Marking a task as done is not fully supported yet. Aditionally, please be
    
 4. In the server directory, open **sample.env** and copy its content into a new file named **.env**, then replace variable placeholders with the correct values for your database.
 
-### Compile TypeScript code:
-Run the following comand in the server directory:
+### Compile TypeScript for the server and front-end
+Run the following comand in the server and root directory:
    ```sh
    npx tcs
    ```
@@ -37,6 +38,9 @@ Run the following comand in the server directory:
 ### Run the server locally
 In the server directory, start the development server by running:
    ```sh
-   npm run devStart
+   npm run dev
    ```
-Backend will be running on **http://localhost:3001**.
+Backend will be running on **http://localhost:3001** by default, if no value for PORT is passed beforehand.
+
+### Run server to render Front-End
+You can do this by running the Go Live extension on VSCode / VSCodium, or use your prefered local web server.
