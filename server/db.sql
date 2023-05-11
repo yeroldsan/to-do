@@ -7,7 +7,8 @@ use todo
 
 create table task (
     id serial primary key,
-    description varchar(255) not null
+    description varchar(255) not null,
+    completed boolean not null
 );
 
 insert into task (description) values ("My test task");
