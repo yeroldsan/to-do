@@ -2,147 +2,193 @@ import { Task } from "./class/Task.js";
 import { Todos } from "./class/Todo.js";
 
 // Backend route
-const BACKEND_ROOT_URL = "https://todo-backend-ujqs.onrender.com";
+// const BACKEND_ROOT_URL = "https://todo-backend-ujqs.onrender.com";
+const BACKEND_ROOT_URL = "http://localhost:3001";
 
-// Charge all the DOM content before JavaScript
-document.addEventListener("DOMContentLoaded", () => {
-  // Create object  of Todos class
-  const todos = new Todos(BACKEND_ROOT_URL);
+// Create object  of Todos class
+const todos = new Todos(BACKEND_ROOT_URL);
 
-  const list = <HTMLUListElement>document.querySelector("#todolist");
-  const input = <HTMLInputElement>document.querySelector("#newtodo");
+// Define the input element
+const input = <HTMLInputElement>document.querySelector("#newtodo");
+// User cannot add new task while data is retrieved
+input.disabled = true;
 
-  // User cannot add new task while data is retrieved
-  input.disabled = true;
+// Get all the task from backend and render the view for each of them
+todos
+  .getTask()
+  .then((tasks: Array<Task>) => {
+    tasks.forEach((task) => {        
+      renderTask(<Task>task);
+    });
+    input.disabled = false;
+  })
+  .catch((error) => {
+    alert(error);
+  });
 
-  todos
-    .getTask()
-    .then((tasks: Array<Task>) => {
-      tasks.forEach((task) => {
+// Add event listener keypress to input element to add new task
+input.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    // event.preventDefault();
+    const description = input.value.trim();
+    if (description !== "") {
+      todos.addTask(description).then((task) => {
+        input.value = "";
+        input.focus();       
         renderTask(task);
       });
-      input.disabled = false;
-    })
-    .catch((error) => {
-      alert(error);
-    });
-
-  // Listener event to add new task
-  const insertNewTask = (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      const description = input.value.trim();
-      if (description !== "") {
-        todos.addTask(description).then((task) => {
-          input.value = "";
-          input.focus();
-          renderTask(<Task>task);
-        });
-      }
-      event.preventDefault();
     }
-  };
+    event.preventDefault();
+  }
+});
 
-  // Add event listener keypress to input element
-  input.addEventListener("keypress", insertNewTask);
+// Render the new task
+const renderTask = (task) => {
+  // Create a new list item element and set attributes
+  let list_item: HTMLLIElement = document.createElement("li");
+  list_item.setAttribute("class", "list-group-item");
+  list_item.setAttribute("data-key", task.id.toString());
 
-  // Render the new task
-  const renderTask = (task: Task) => {
-    let list_item: HTMLLIElement = document.createElement("li");
-    list_item.setAttribute("class", "list-group-item");
-    list_item.setAttribute("data-key", task.id.toString());
-    renderSpan(list_item, task.description);
-    renderDeleteTask(list_item, task.id);
-    updateTask(list_item, task.id);
-    markTaskDone(list_item, task.id);
+  // Render the task description as a span element within the list item
+  renderSpan(list_item, task.description);
+  // Render a button to delete the task within the list item
+  renderDeleteTask(list_item, task.id);
+  // Render a button to update the task's description
+  updateTask(list_item, task.id, task.completed);
+  // Add a checkbox to mark the task as completed within the list item
+  markTaskDone(list_item, task.id, task.completed);
 
-    list.append(list_item);
-  };
+  // Define list element
+  const ulList = <HTMLUListElement>document.querySelector("#todolist");
+  // Add the list item to the list element
+  ulList.prepend(list_item);
+};
 
-  // Render the new span element
-  const renderSpan = (list_item: HTMLLIElement, description: string) => {
-    let span = list_item.appendChild(document.createElement("span"));
-    span.setAttribute("class","mx-2")
-    span.innerText = description;
-  };
+// Render the new span element for description
+const renderSpan = (list_item: HTMLLIElement, description: string) => {
+  //const ulList: HTMLUListElement = document.querySelector("#todolist")
+  const span: HTMLSpanElement = document.createElement("span")
+  list_item.appendChild(span)
+  span.setAttribute("class", "mx-2");
+  span.innerText = description;
+};
 
-  const renderDeleteTask = (list_item: HTMLLIElement, id: number) => {
-    let link = list_item.appendChild(document.createElement("a"));
-    // link.innerHTML = '<i class="bi bi-trash mx-2"></i>'
-    link.setAttribute("class", "bi bi-trash text-danger");
-    link.style.float = "right";
+// Delete task from the list
+const renderDeleteTask = (list_item: HTMLLIElement, id: number) => {
+  let link = list_item.appendChild(document.createElement("a"));
+  // link.innerHTML = '<i class="bi bi-trash mx-2"></i>'
+  link.setAttribute("class", "bi bi-trash text-danger");
+  link.style.float = "right";
+  link.addEventListener("click", (event: MouseEvent) => {
+    todos
+      .removeTask(id)
+      .then((id) => {
+        let elementToRemove: HTMLLIElement = document.querySelector(
+          `[data-key='${id}']`
+        );
+        if (elementToRemove) {
+          const ulList = <HTMLUListElement>document.querySelector("#todolist");
+          ulList.removeChild(elementToRemove);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  });
+};
 
-    link.addEventListener("click", (event: MouseEvent) => {
+// Add new updateTask event
+const updateTask = (list_item: HTMLLIElement, id: number, completed: boolean) => {
+  
+  const link: HTMLAnchorElement = document.createElement("a");
+  if (completed != true) {
+    list_item.appendChild(link)
+  }
+  // link.innerHTML = '<i class="bi bi-pencil mx-2"></i>'
+  link.setAttribute("class", "bi bi-pencil mx-3");
+  link.style.float = "right";
+
+  link.addEventListener("click", (event: MouseEvent) => {
+    const oldDescription = list_item.querySelector("span").innerText;
+    let newDescription = prompt(
+      "Enter new task description:",
+      oldDescription
+    );
+
+    // If the user cancels the prompt, do nothing and return
+    if (newDescription === null) {
+      return;
+    }
+
+    // / If the user enters an empty description, prompt them again until they enter a valid description
+    while (newDescription === "" || prompt === null) {
+      alert("New description required")
+      newDescription = prompt("Change your task", oldDescription)
+      if (newDescription === null) {
+        return;
+      }
+    }
+
+    // If the user enters a valid description, update the task description
+    if (newDescription !== oldDescription) {
       todos
-        .removeTask(id)
-        .then((id) => {
-          let elementToRemove: HTMLLIElement = document.querySelector(
-            `[data-key='${id}']`
-          );
-          if (elementToRemove) {
-            list.removeChild(elementToRemove);
-          }
+        .updateTaskDescription(id, newDescription, completed)
+        .then(() => {
+          list_item.querySelector("span").innerHTML = newDescription;
         })
         .catch((error) => {
           alert(error);
         });
-    });
-  };
+    } else {
+      return
+    }
+  });
+};
 
-  // Add new updateTask event
-  const updateTask = (list_item: HTMLLIElement, id: number) => {
-    let link = list_item.appendChild(document.createElement("a"));
-    // link.innerHTML = '<i class="bi bi-pencil mx-2"></i>'
-    link.setAttribute("class", "bi bi-pencil mx-3");
-    link.style.float = "right";
+// Mark task as done from the checkbox
+const markTaskDone = (list_item: HTMLLIElement, id: number, completed: boolean) => {
+  // Select span to change
+  const span: HTMLSpanElement = list_item.querySelector("span");
+  
+  // Create checkbox element
+  const checkbox: HTMLInputElement = list_item.appendChild(document.createElement("input"));
 
-    link.addEventListener("click", (event: MouseEvent) => {
-      let oldDescription = list_item.querySelector("span").innerText;
-      let new_description = prompt(
-        "Enter new task description:",
-        oldDescription
-      );
-      if (new_description !== "") {
-        todos
-          .updateTask(id, new_description)
-          .then(() => {
-            list_item.querySelector("span").innerHTML = new_description;
-          })
-          .catch((error) => {
-            alert(error);
-          });
-      } else {
-        alert("New description required");
-      }
-    });
-  };
+  // Set atrributes and style
+  checkbox.setAttribute("type", "checkbox");
+  checkbox.setAttribute("id", `checkbox-${id}`);
+  checkbox.setAttribute("class", "form-check-input");
+  checkbox.style.float = "left";
 
-  const markTaskDone = (list_item: HTMLLIElement, id: number) => {
-    let checkbox = list_item.appendChild(document.createElement("input"));
-    checkbox.setAttribute("type", "checkbox");
-    checkbox.setAttribute("id", `checkbox-${id}`);
-    checkbox.setAttribute("class", "form-check-input");
-    checkbox.style.float = "left";
+  // Check if task in db checked true and render completed checkbox
+  if (completed === true) {
+    span.style.textDecorationLine = "line-through";
+    checkbox.checked = true
+  } else {
+    span.style.textDecorationLine = "none";
+    checkbox.checked = false
+  }
 
-    let span = list_item.querySelector("span");
-    checkbox.addEventListener("change", (event: Event) => {
-      if (checkbox.checked) {
-        todos
-          .markTaskAsDone(id, true)
-          .then(() => {
-            span.style.textDecorationLine = "line-through";
-          })
-          .catch((error) => {
-            alert(error);
-          });
-      } else {
-        todos.markTaskAsDone(id, false);
+  // Event when checkbox is checked
+  checkbox.addEventListener("change", (event: Event) => {
+    if (checkbox.checked) {
+      todos
+        .markTaskAsDone(id, true)
+        .then(() => {
+          span.style.textDecorationLine = "line-through";
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    } else {
+      todos.markTaskAsDone(id, false)
+      .then(() => {
         span.style.textDecorationLine = "none";
-      }
-    });
-  };
+        checkbox.checked = false
+      })
+      .catch((error) => {
+        alert(error)
+      })
+    }
+  });
 
-  // const renderCheckbox = (list_item: HTMLLIElement, completed: boolean) => {
-  //   let checkbox =
-  // }
-});
+};
