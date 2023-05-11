@@ -7,14 +7,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const routes_1 = __importDefault(require("./routes"));
+const dotenv_1 = __importDefault(require("dotenv"));
+// Load environment variables from .env file
+dotenv_1.default.config();
 // Start new instance of express
 const app = (0, express_1.default)();
-// Packges used by app
-app.use((0, cors_1.default)());
-app.use(express_1.default.json());
-app.use(express_1.default.urlencoded({ extended: false }));
 // Port number declaration
-const port = 3001;
+const port = process.env.PORT || 3001;
+// Middlewares used by app
+app.use([(0, cors_1.default)(), express_1.default.json(), express_1.default.urlencoded({ extended: false })]);
 // Use the router module for all routes starting with "/"
 app.use("/", routes_1.default);
 // Port listening
