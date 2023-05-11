@@ -1,9 +1,9 @@
 import { Task } from "./class/Task.js";
 import { Todos } from "./class/Todo.js";
 
-// Backend route
-// const BACKEND_ROOT_URL = "https://todo-backend-ujqs.onrender.com";
-const BACKEND_ROOT_URL = "http://localhost:3001";
+// Backend route | CHANGE THIS LINE!
+const BACKEND_ROOT_URL = "https://todo-backend-ujqs.onrender.com";
+// const BACKEND_ROOT_URL = "http://localhost:3001";
 
 // Create object  of Todos class
 const todos = new Todos(BACKEND_ROOT_URL);
