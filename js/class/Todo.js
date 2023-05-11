@@ -25,22 +25,6 @@ class Todos {
         _Todos_instances.add(this);
         this.tasks = [];
         _Todos_backend_url.set(this, "");
-        // Fetching data from the backend making HTTP call JSON (array) received as response
-        // getTask = async () => {
-        //   return new Promise(async (resolve, reject) => {
-        //     fetch(this.#backend_url)
-        //       .then((response) => response.json())
-        //       .then((data) => {
-        //         this.#readJson(data);
-        //         console.log(data);    
-        //         resolve(this.tasks);
-        //         console.log(this.tasks);
-        //       })
-        //       .catch((error) => {
-        //         reject(error);
-        //       });
-        //   });
-        // };
         this.getTask = () => __awaiter(this, void 0, void 0, function* () {
             try {
                 const response = yield fetch(__classPrivateFieldGet(this, _Todos_backend_url, "f"));
