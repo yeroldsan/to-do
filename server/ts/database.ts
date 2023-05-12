@@ -18,6 +18,7 @@ const openDB = (): Pool => {
     return pool
 }
 
+/*
 // Listen to the SIGINT and SIGTERM signals and close the database connection
 process.on('SIGINT', () => {
     pool.end(() => {
@@ -32,6 +33,7 @@ process.on('SIGINT', () => {
       process.exit(0);
     });
   });
+*/
 
 // Connect to the database
 export const pool = openDB();
