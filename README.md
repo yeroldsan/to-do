@@ -1,17 +1,19 @@
 # Todo Web App
 
-This To-Do app allows users to perform CRUD (Create, Read, Update, Delte) operations on tasks. The server was built using the Express framework and NodeJS as the runtime, and for the database PostgreSQL was the choice. Both, back-end and front-end are written in TypeScript.
+## Description
+
+This To-Do app allows users to perform CRUD (Create, Read, Update and Delete) operations on the tasks. The server was built using the Express framework and NodeJS as the runtime. As for the database, PostgreSQL was the choice. Both, back-end and front-end are written in TypeScript.
 
 _Note: Please be aware that the server and database are hosted on Render, which may cause some delay in the app's performance._
 
 ## Development Setup
 
 ### Prerequisites
+
 - Node.js
 - PostgreSQL ^15 (if any other relational database is used, change the db.sql file accordingly)
 
 ### Local setup (Linux & Windows)
-
 1. First, clone the repo and cd into the project:
    ```sh
    git clone https://github.com/t2haev00/project-groupd.git
