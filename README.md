@@ -1,8 +1,10 @@
-# Todo Web App
+# To-Do List Web App
 
 ## Description
 
 This To-Do app allows users to perform CRUD (Create, Read, Update and Delete) operations on the tasks. The server was built using the Express framework and NodeJS as the runtime. As for the database, PostgreSQL was the choice. Both, back-end and front-end are written in TypeScript.
+
+![Screenshot-To-Do-List.png](https://i.postimg.cc/j5YxHWZ0/Screenshot-To-Do-List.png?raw=true "To-Do Demo")
 
 _Note: Please be aware that the server and database are hosted on Render, which may cause some delay in the app's performance._
 
