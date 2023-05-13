@@ -34,9 +34,13 @@ _Note: Please be aware that the server and database are hosted on Render, which 
 4. In the server directory, open **sample.env** and copy its content into a new file named **.env**, then replace variable placeholders with the correct values for your database.
 
 ### Compile TypeScript for the server and front-end
-Run the following comand in the server and root directory:
+Run the following comand in the server:
    ```sh
-   npx tcs
+   npm run build
+   ```
+And in the root directory:
+```sh
+   npx tsc
    ```
   
 ### Run the server locally
