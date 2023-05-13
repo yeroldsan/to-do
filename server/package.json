@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "todo-server",
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
@@ -19,9 +19,9 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node index.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q index.js\"",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q ./js/index.js\"",
     "test": "echo \"Error: notest specified\" && exit 1"
   },
   "author": "Yerold Sanabria / doteins",
-  "license": "ISC"
+  "license": "MIT"
 }
