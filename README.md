@@ -39,7 +39,7 @@ Run the following comand in the server:
    npm run build
    ```
 And in the root directory:
-```sh
+   ```sh
    npx tsc
    ```
   
