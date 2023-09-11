@@ -18,7 +18,7 @@ _Note: Please be aware that the server and database are hosted on Render, which 
 ### Local setup (Linux & Windows)
 1. First, clone the repo and cd into the project:
    ```sh
-   git clone https://github.com/t2haev00/project-groupd.git
+   git clone https://github.com/yeroldsan/todo.git
    ```
    
 2. Move to the server directory:
